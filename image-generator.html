@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Product Images</title>
+</head>
+<body>
+    <h1>Product Image Generator</h1>
+    <div id="images"></div>
+
+    <script>
+        const products = [
+            { name: 'Classic White T-Shirt', color: '#f8f9fa', textColor: '#000' },
+            { name: 'Blue Denim Jeans', color: '#4a90e2', textColor: '#fff' },
+            { name: 'Red Hoodie', color: '#e74c3c', textColor: '#fff' },
+            { name: 'Black Leather Jacket', color: '#2c3e50', textColor: '#fff' },
+            { name: 'Summer Dress', color: '#f39c12', textColor: '#fff' },
+            { name: 'Casual Sneakers', color: '#95a5a6', textColor: '#000' },
+            { name: 'Leather Handbag', color: '#8e44ad', textColor: '#fff' },
+            { name: 'Backpack', color: '#3498db', textColor: '#fff' },
+            { name: 'Travel Duffel Bag', color: '#e67e22', textColor: '#fff' },
+            { name: 'Crossbody Bag', color: '#9b59b6', textColor: '#fff' },
+            { name: 'Tote Bag', color: '#1abc9c', textColor: '#fff' },
+            { name: 'Welcome Doormat', color: '#34495e', textColor: '#fff' },
+            { name: 'Decorative Throw Pillow', color: '#f1c40f', textColor: '#000' },
+            { name: 'Ceramic Vase', color: '#e8f5e8', textColor: '#000' },
+            { name: 'Wall Art Print', color: '#ecf0f1', textColor: '#000' },
+            { name: 'Table Lamp', color: '#f5cba7', textColor: '#000' },
+            { name: 'Kitchen Towel Set', color: '#d5dbdb', textColor: '#000' },
+            { name: 'Wireless Earbuds', color: '#7d3c98', textColor: '#fff' },
+            { name: 'Smartphone Stand', color: '#85c1e9', textColor: '#000' },
+            { name: 'USB Charging Cable', color: '#a9dfbf', textColor: '#000' },
+            { name: 'Notebook Set', color: '#f8c471', textColor: '#000' },
+            { name: 'Gel Pen Set', color: '#f1948a', textColor: '#000' }
+        ];
+
+        const container = document.getElementById('images');
+
+        products.forEach(product => {
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 300;
+            const ctx = canvas.getContext('2d');
+
+            // Background
+            ctx.fillStyle = product.color;
+            ctx.fillRect(0, 0, 400, 300);
+
+            // Border
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(0, 0, 400, 300);
+
+            // Text
+            ctx.fillStyle = product.textColor;
+            ctx.font = 'bold 24px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(product.name, 200, 140);
+
+            ctx.font = '16px Arial';
+            ctx.fillText('MyStore Product', 200, 170);
+            ctx.fillText('Click for details', 200, 200);
+
+            // Create download link
+            const link = document.createElement('a');
+            link.download = product.name.toLowerCase().replace(/\s+/g, '-') + '.png';
+            link.href = canvas.toDataURL();
+            link.textContent = `Download ${product.name}`;
+
+            const div = document.createElement('div');
+            div.style.margin = '10px';
+            div.style.display = 'inline-block';
+            div.appendChild(canvas);
+            div.appendChild(document.createElement('br'));
+            div.appendChild(link);
+
+            container.appendChild(div);
+        });
+    </script>
+</body>
+</html>
